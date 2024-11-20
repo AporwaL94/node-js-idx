@@ -1,0 +1,110 @@
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:2641501133.
+
+import { Request, Response } from 'express';
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:2770088262.
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:1316564356.
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:799514505.
+
+/**
+ * @swagger
+ * /blog/posts:
+ *   get:
+ *     summary: Get all posts
+ *     description: Retrieves a list of all blog posts.
+ *     responses:
+ *       200:
+ *         description: A list of blog posts.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Post'
+ * /blog/posts/{id}:
+ *   get:
+ *     summary: Get a post by ID
+ *     description: Retrieves a blog post by its ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the post to retrieve.
+ *     responses:
+ *       200:
+ *         description: The requested blog post.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
+ *       404:
+ *         description: Post not found.
+ * components:
+ *   schemas:
+ *     Post:
+
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: The post ID.
+ *         title:
+ *           type: string
+ *           description: The post title.
+ *         content:
+ *           type: string
+ *           description: The post content.
+ *         imageUrl:
+ *           type: string
+ *           description: URL of the post's image. 
+ */
+// Replace with your actual data source or database logic
+const posts = [
+  {
+    id: 1,
+    title: 'Exploring the Wonders of the Natural World',
+    content: 'From lush forests to vast oceans, our planet is teeming with incredible natural wonders waiting to be discovered. Join us on a journey as we delve into the beauty and diversity of the natural world.',
+    imageUrl: 'https://via.placeholder.com/600x400?text=Natural+Wonders', 
+  },
+  {
+    id: 2,
+    title: 'The Art of Culinary Creations',
+    content: 'Food is more than just sustenance; it is an art form that tantalizes our senses and brings people together. Explore the culinary world with us as we share recipes, techniques, and stories from around the globe.',
+    imageUrl: 'https://via.placeholder.com/600x400?text=Culinary+Creations',
+  },
+  {
+    id: 3,
+    title: 'Unlocking the Mysteries of the Universe',
+    content: 'The cosmos is a vast and enigmatic realm, filled with stars, galaxies, and planets beyond our imagination. Embark on a cosmic adventure as we explore the latest discoveries and unravel the secrets of the universe.',
+    imageUrl: 'https://via.placeholder.com/600x400?text=Universe+Mysteries', 
+  },
+  {
+    id: 4,
+    title: 'The Power of Music and its Influence on Culture',
+    content: 'Music has the ability to transcend boundaries and connect people from all walks of life. Discover the transformative power of music as we explore its history, cultural significance, and emotional impact.',
+    imageUrl: 'https://via.placeholder.com/600x400?text=Music+and+Culture',
+  },
+  {
+    id: 5,
+    title: 'The Evolution of Technology and its Impact on Society',
+    content: 'Technology has revolutionized the way we live, work, and interact with the world around us. Explore the evolution of technology and its impact on society, from the invention of the wheel to the rise of artificial intelligence.',
+    imageUrl: 'https://via.placeholder.com/600x400?text=Technology+Evolution', 
+  },
+];
+
+
+export const getAllPosts = (req: Request, res: Response) => {
+  res.json(posts);
+};
+
+export const getPostById = (req: Request, res: Response) => {
+  const postId = parseInt(req.params.id, 10);
+  const post = posts.find((p) => p.id === postId);
+
+  if (post) {
+    res.json(post);
+  } else {
+    res.status(404).json({ message: 'Post not found' });
+  }
+};

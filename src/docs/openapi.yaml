@@ -1,0 +1,16 @@
+paths:
+  /healthcheck:
+    get:
+      summary: Health check endpoint.
+      operationId: healthcheck
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
